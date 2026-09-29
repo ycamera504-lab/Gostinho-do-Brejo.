@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gostinho do Brejo - Cardápio Digital</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            red: '#D9251D',
+                            darkred: '#990000',
+                            yellow: '#FFB800',
+                            gold: '#F59E0B',
+                            orange: '#FF5722',
+                            dark: '#121212',
+                            card: '#1E1E1E',
+                            surface: '#282828'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #121212;
+            color: #F3F4F6;
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #1E1E1E;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #FFB800;
+            border-radius: 3px;
+        }
+        .pulse-amber {
+            animation: pulse-amber 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        @keyframes pulse-amber {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: .85; transform: scale(1.03); }
+        }
+        .hero-bg {
+            background: linear-gradient(135deg, rgba(217, 37, 29, 0.95) 0%, rgba(153, 0, 0, 0.95) 50%, rgba(18, 18, 18, 0.98) 100%),
+                        url('https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=1200&q=80') center/cover;
+        }
+    </style>
+</head>
+<body class="min-h-screen pb-28 lg:pb-12 text-gray-100 flex flex-col selection:bg-brand-yellow selection:text-black">
+
+    <!-- Top Header Banner -->
+    <header class="hero-bg text-white shadow-2xl relative overflow-hidden border-b-2 border-brand-yellow/30">
+        <div class="max-w-6xl mx-auto px-4 py-8 md:py-10">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+                <!-- Store Info -->
+                <div class="text-center md:text-left">
+                    <div class="inline-flex items-center gap-2 bg-brand-yellow text-black text-xs font-black px-3 py-1 rounded-full uppercase tracking-wider mb-2 shadow-md">
+                        <i class="fa-solid fa-motorcycle"></i> Delivery Rapidinho
+                    </div>
+                    <h1 class="text-3xl md:text-5xl font-black tracking-tight text-amber-300 drop-shadow-md">
+                        GOSTINHO DO BREJO
+                    </h1>
+                    <p class="text-gray-200 text-sm md:text-base font-medium mt-1 max-w-xl">
+                        Os melhores hambúrgueres, pastéis recheados, cuscuz especial e açaí cremoso da cidade!
+                    </p>
+                    <div class="flex flex-wrap items-center justify-center md:justify-start gap-4 mt-4 text-xs md:text-sm font-semibold">
+                        <span class="flex items-center gap-1.5 bg-black/40 px-3 py-1.5 rounded-lg border border-white/10 backdrop-blur-sm">
+                            <i class="fa-brands fa-whatsapp text-green-400 text-base"></i> (83) 99654-7831
+                        </span>
+                        <span class="flex items-center gap-1.5 bg-green-500/20 text-green-300 px-3 py-1.5 rounded-lg border border-green-500/30 backdrop-blur-sm">
+                            <span class="w-2 h-2 rounded-full bg-green-400 animate-ping"></span> Aberto Agora
+                        </span>
+                        <span class="flex items-center gap-1.5 bg-black/40 px-3 py-1.5 rounded-lg border border-white/10 backdrop-blur-sm">
+                            <i class="fa-solid fa-bolt text-brand-yellow"></i> Pagamento via Pix
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Call to Action Card Desktop -->
+                <div class="hidden md:flex flex-col items-end gap-2 bg-black/50 p-4 rounded-2xl border border-brand-yellow/30 backdrop-blur-md max-w-xs text-right">
+                    <div class="flex items-center gap-3">
+                        <div>
+                            <p class="text-xs text-gray-300">Peça seu lanche online</p>
+                            <p class="text-sm font-bold text-brand-yellow">Entregamos na sua porta</p>
+                        </div>
+                        <div class="w-10 h-10 rounded-full bg-brand-yellow text-black flex items-center justify-center font-bold text-lg">
+                            <i class="fa-solid fa-utensils"></i>
+                        </div>
+                    </div>
+                    <p class="text-[11px] text-gray-400">Garantia de sabor e ingredientes frescos no seu prato!</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Sticky Filter Navigation -->
+    <nav class="sticky top-0 z-30 bg-brand-dark/95 backdrop-blur-md border-b border-gray-800 shadow-xl">
+        <div class="max-w-6xl mx-auto px-4 py-3">
+            <div class="flex gap-2 overflow-x-auto hide-scrollbar scroll-smooth" id="category-bar">
+                <button onclick="filterCategory('todos', this)" class="cat-btn active bg-brand-yellow text-black font-extrabold px-4 py-2 rounded-xl text-sm whitespace-nowrap transition-all shadow-md">
+                    <i class="fa-solid fa-border-all mr-1.5"></i> Todos os Itens
+                </button>
+                <button onclick="filterCategory('burgers', this)" class="cat-btn bg-brand-card hover:bg-brand-surface text-gray-300 font-medium px-4 py-2 rounded-xl text-sm whitespace-nowrap transition-all">
+                    <i class="fa-solid fa-burger mr-1.5 text-brand-yellow"></i> Hambúrgueres
+                </button>
+                <button onclick="filterCategory('pasteis', this)" class="cat-btn bg-brand-card hover:bg-brand-surface text-gray-300 font-medium px-4 py-2 rounded-xl text-sm whitespace-nowrap transition-all">
+                    <i class="fa-solid fa-cookie mr-1.5 text-brand-yellow"></i> Pastéis
+                </button>
+                <button onclick="filterCategory('cuscuz', this)" class="cat-btn bg-brand-card hover:bg-brand-surface text-gray-300 font-medium px-4 py-2 rounded-xl text-sm whitespace-nowrap transition-all">
+                    <i class="fa-solid fa-bowl-food mr-1.5 text-brand-yellow"></i> Cuscuz Especial
+                </button>
+                <button onclick="filterCategory('salgados', this)" class="cat-btn bg-brand-card hover:bg-brand-surface text-gray-300 font-medium px-4 py-2 rounded-xl text-sm whitespace-nowrap transition-all">
+                    <i class="fa-solid fa-drumstick-bite mr-1.5 text-brand-yellow"></i> Salgados
+                </button>
+                <button onclick="filterCategory('batata', this)" class="cat-btn bg-brand-card hover:bg-brand-surface text-gray-300 font-medium px-4 py-2 rounded-xl text-sm whitespace-nowrap transition-all">
+                    <i class="fa-solid fa-box-archive mr-1.5 text-brand-yellow"></i> Batata Frita
+                </button>
+                <button onclick="filterCategory('acai', this)" class="cat-btn bg-brand-card hover:bg-brand-surface text-gray-300 font-medium px-4 py-2 rounded-xl text-sm whitespace-nowrap transition-all">
+                    <i class="fa-solid fa-ice-cream mr-1.5 text-purple-400"></i> Açaí Cremoso
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Container -->
+    <main class="max-w-6xl mx-auto px-4 py-8 flex-1 grid grid-cols-1 lg:grid-cols-3 gap-8">
+        
+        <!-- Menu Items List -->
+        <section class="lg:col-span-2 space-y-6">
+            <div class="flex items-center justify-between border-b border-gray-800 pb-3">
+                <h2 id="category-title" class="text-xl font-bold text-brand-yellow flex items-center gap-2">
+                    <i class="fa-solid fa-fire text-brand-red"></i> Cardápio Principal
+                </h2>
+                <span id="items-count-tag" class="text-xs text-gray-400 font-medium">Exibindo itens</span>
+            </div>
+
+            <div id="products-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <!-- Products loaded dynamically via JS -->
+            </div>
+        </section>
+
+        <!-- Desktop Sidebar Cart -->
+        <aside class="hidden lg:block">
+            <div class="bg-brand-card rounded-2xl p-5 border border-gray-800 sticky top-20 shadow-2xl space-y-4">
+                <div class="flex items-center justify-between pb-3 border-b border-gray-800">
+                    <h3 class="text-lg font-bold text-amber-400 flex items-center gap-2">
+                        <i class="fa-solid fa-cart-shopping"></i> Seu Pedido
+                    </h3>
+                    <span id="desktop-badge-count" class="bg-brand-yellow text-black text-xs font-black px-2.5 py-0.5 rounded-full">
+                        0 itens
+                    </span>
+                </div>
+
+                <!-- Cart Items Scroll Area -->
+                <div id="desktop-cart-list" class="max-h-80 overflow-y-auto custom-scrollbar space-y-3 my-2 pr-1">
+                    <p class="text-gray-500 text-center py-8 text-sm">Nenhum item adicionado ao seu carrinho ainda.</p>
+                </div>
+
+                <!-- Total & Checkout Action -->
+                <div class="border-t border-gray-800 pt-4 space-y-3">
+                    <div class="flex justify-between items-center text-sm text-gray-400">
+                        <span>Subtotal</span>
+                        <span id="desktop-subtotal">R$ 0,00</span>
+                    </div>
+                    <div class="flex justify-between items-center text-lg font-bold text-white border-t border-gray-800/60 pt-2">
+                        <span>Total do Pedido</span>
+                        <span id="desktop-total" class="text-brand-yellow text-xl">R$ 0,00</span>
+                    </div>
+
+                    <button id="btn-desktop-checkout" onclick="openCheckoutModal()" disabled 
+                        class="w-full bg-brand-yellow hover:bg-amber-400 disabled:bg-gray-800 disabled:text-gray-600 disabled:cursor-not-allowed text-black font-black py-3.5 rounded-xl shadow-lg transition-all flex items-center justify-center gap-2 text-sm uppercase tracking-wider">
+                        <span>Avançar para Pedido</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </aside>
+    </main>
+
+    <!-- Mobile Bottom Floating Bar -->
+    <div class="lg:hidden fixed bottom-0 left-0 right-0 bg-brand-dark/95 backdrop-blur-lg border-t border-gray-800 p-3 z-40 shadow-2xl">
+        <div class="max-w-md mx-auto flex items-center justify-between gap-3">
+            <div>
+                <span class="text-[11px] text-gray-400 uppercase tracking-wider block">Total do Pedido</span>
+                <span id="mobile-cart-total" class="text-xl font-black text-brand-yellow">R$ 0,00</span>
+            </div>
+            <button id="btn-mobile-checkout" onclick="openCheckoutModal()" disabled 
+                class="bg-brand-yellow hover:bg-amber-400 disabled:bg-gray-800 disabled:text-gray-600 text-black font-extrabold px-5 py-3 rounded-xl transition-all flex items-center gap-2 shadow-lg text-sm">
+                <span>Ver Carrinho</span>
+                <span id="mobile-cart-badge" class="bg-black/20 text-black text-xs font-black px-2 py-0.5 rounded-full">0</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Checkout Modal -->
+    <div id="checkout-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-3 sm:p-4 hidden transition-opacity duration-300">
+        <div class="bg-brand-card border border-gray-800 rounded-2xl max-w-lg w-full max-h-[92vh] flex flex-col shadow-2xl relative overflow-hidden">
+            
+            <!-- Modal Header -->
+            <div class="p-4 sm:p-5 border-b border-gray-800 flex items-center justify-between bg-brand-surface/50">
+                <h3 class="text-lg font-bold text-brand-yellow flex items-center gap-2">
+                    <i class="fa-solid fa-receipt"></i> Finalizar Pedido
+                </h3>
+                <button onclick="closeCheckoutModal()" class="text-gray-400 hover:text-white p-1 rounded-lg hover:bg-gray-800 transition-all">
+                    <i class="fa-solid fa-xmark text-xl"></i>
+                </button>
+            </div>
+
+            <!-- Modal Content Scroll Area -->
+            <div class="p-4 sm:p-5 overflow-y-auto custom-scrollbar space-y-5 flex-1">
+                
+                <!-- Order Summary -->
+                <div class="bg-brand-surface/40 border border-gray-800 rounded-xl p-3.5">
+                    <h4 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 flex items-center gap-1.5">
+                        <i class="fa-solid fa-basket-shopping text-brand-yellow"></i> Resumo do Carrinho
+                    </h4>
+                    <div id="modal-cart-summary" class="space-y-2 max-h-36 overflow-y-auto custom-scrollbar pr-1 text-xs sm:text-sm">
+                        <!-- Items populated via JS -->
+                    </div>
+                    <div class="border-t border-gray-800 mt-3 pt-2.5 flex justify-between items-center font-bold text-sm sm:text-base">
+                        <span>Total:</span>
+                        <span id="modal-total-price" class="text-brand-yellow text-lg">R$ 0,00</span>
+                    </div>
+                </div>
+
+                <!-- Customer Form -->
+                <form id="order-form" onsubmit="submitOrder(event)" class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-bold text-gray-300 mb-1">Seu Nome Completo *</label>
+                        <input type="text" id="cust-name" required placeholder="Ex: Maria Silva" 
+                            class="w-full bg-brand-dark border border-gray-700 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-brand-yellow transition-all">
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-xs font-bold text-gray-300 mb-1">Forma de Entrega</label>
+                            <select id="delivery-type" onchange="toggleAddressField()" 
+                                class="w-full bg-brand-dark border border-gray-700 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-brand-yellow transition-all">
+                                <option value="delivery">Delivery (Entrega em Domicílio)</option>
+                                <option value="retirada">Retirar no Balcão</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold text-gray-300 mb-1">Forma de Pagamento</label>
+                            <select id="payment-method" onchange="handlePaymentChange()" 
+                                class="w-full bg-brand-dark border border-gray-700 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-brand-yellow transition-all">
+                                <option value="pix">Pix (Pagamento Instantâneo)</option>
+                                <option value="dinheiro">Dinheiro</option>
+                                <option value="cartao">Cartão de Crédito/Débito</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Address Input Container -->
+                    <div id="address-container">
+                        <label class="block text-xs font-bold text-gray-300 mb-1">Endereço de Entrega *</label>
+                        <textarea id="cust-address" required rows="2" placeholder="Rua, Número, Bairro e Ponto de Referência" 
+                            class="w-full bg-brand-dark border border-gray-700 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-brand-yellow transition-all"></textarea>
+                    </div>
+
+                    <!-- Observações -->
+                    <div>
+                        <label class="block text-xs font-bold text-gray-300 mb-1">Observações do Pedido (Opcional)</label>
+                        <input type="text" id="cust-notes" placeholder="Ex: Sem cebola, caprichar no maionese..." 
+                            class="w-full bg-brand-dark border border-gray-700 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-brand-yellow transition-all">
+                    </div>
+
+                    <!-- Troco Container -->
+                    <div id="troco-container" class="hidden">
+                        <label class="block text-xs font-bold text-gray-300 mb-1">Troco para quanto?</label>
+                        <input type="text" id="cust-troco" placeholder="Ex: Troco para R$ 50,00" 
+                            class="w-full bg-brand-dark border border-gray-700 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-brand-yellow transition-all">
+                    </div>
+
+                    <!-- Pix Payment Section -->
+                    <div id="pix-payment-box" class="bg-gradient-to-br from-amber-500/10 to-brand-yellow/5 border border-brand-yellow/40 p-4 rounded-xl text-center space-y-3">
+                        <div class="flex items-center justify-center gap-2 text-brand-yellow font-extrabold text-sm">
+                            <i class="fa-pix text-xl"></i> Pagamento via PIX
+                        </div>
+                        <p class="text-xs text-gray-300">Chave Pix (WhatsApp): <strong class="text-white font-bold select-all">(83) 99654-7831</strong></p>
+                        
+                        <!-- QR Code Image Generator Simulation -->
+                        <div class="bg-white p-2.5 w-36 h-36 mx-auto rounded-xl shadow-lg border border-gray-300 flex items-center justify-center">
+                            <img src="https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=00020126580014BR.GOV.BCB.PIX0114839965478315204000053039865802BR5920Gostinho%20do%20Brejo6009JOAO%20PESSOA62070503***6304E0C1" 
+                                 alt="QR Code Pix" class="w-full h-full object-contain"
+                                 onerror="this.onerror=null; this.src='https://placehold.co/140x140/000000/FFFFFF?text=QR+Code+PIX';">
+                        </div>
+
+                        <div class="flex items-center justify-center gap-2 pt-1">
+                            <button type="button" onclick="copyPixKey()" 
+                                class="bg-brand-yellow hover:bg-amber-400 text-black text-xs font-extrabold px-4 py-2 rounded-lg transition-all flex items-center gap-1.5 shadow-md active:scale-95">
+                                <i class="fa-regular fa-copy"></i> Copiar Chave Pix
+                            </button>
+                        </div>
+                        <p class="text-[11px] text-gray-400">Após realizar o Pix, clique no botão abaixo para enviar o comprovante e pedido pelo WhatsApp.</p>
+                    </div>
+
+                    <button type="submit" 
+                        class="w-full bg-green-600 hover:bg-green-500 text-white font-extrabold py-3.5 rounded-xl shadow-xl transition-all flex items-center justify-center gap-2 text-base active:scale-95 mt-2">
+                        <i class="fa-brands fa-whatsapp text-xl"></i> Enviar Pedido no WhatsApp
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Data Structure with Menu Items from Provided Images
+        const productsList = [
+            // Hambúrgueres
+            { id: 101, category: 'burgers', title: 'Hambúrguer Simples', desc: 'Pão, carne, queijo, molho, alface e tomate.', price: 10.00, tag: 'Tradicional' },
+            { id: 102, category: 'burgers', title: 'X-Completo', desc: 'Pão, carne, queijo, presunto, ovo, calabresa, cheddar, alface e tomate.', price: 14.00, tag: 'Popular' },
+            { id: 103, category: 'burgers', title: 'X-Bacon', desc: 'Pão, carne, queijo, bacon crocante, alface e tomate.', price: 15.00, tag: 'Crocante' },
+            { id: 104, category: 'burgers', title: 'X-Tudo', desc: 'Pão, 2 carnes, queijo, presunto, ovo, calabresa, bacon, cheddar, salada e molho.', price: 18.00, tag: 'Mais Vendido' },
+
+            // Pastéis Tradicionais (R$ 10,00)
+            { id: 201, category: 'pasteis', title: 'Pastel Tradicional - Carne', desc: 'Carne moída selecionada e temperada.', price: 10.00, tag: 'Tradicional' },
+            { id: 202, category: 'pasteis', title: 'Pastel Tradicional - Frango', desc: 'Frango desfiado suculento.', price: 10.00, tag: 'Tradicional' },
+            { id: 203, category: 'pasteis', title: 'Pastel Tradicional - Queijo', desc: 'Muitíssimo queijo derretido.', price: 10.00, tag: 'Tradicional' },
+            { id: 204, category: 'pasteis', title: 'Pastel Tradicional - Misto', desc: 'Presunto de qualidade e queijo derretido.', price: 10.00, tag: 'Tradicional' },
+
+            // Pastéis Especiais (R$ 12,00)
+            { id: 205, category: 'pasteis', title: 'Pastel Especial - Frango c/ Cheddar', desc: 'Frango desfiado com requeijão cheddar cremoso.', price: 12.00, tag: 'Especial' },
+            { id: 206, category: 'pasteis', title: 'Pastel Especial - Carne c/ Queijo', desc: 'Carne moída com queijo derretido.', price: 12.00, tag: 'Especial' },
+            { id: 207, category: 'pasteis', title: 'Pastel Especial - Calabresa c/ Queijo', desc: 'Calabresa fatiada com queijo.', price: 12.00, tag: 'Especial' },
+            { id: 208, category: 'pasteis', title: 'Pastel Especial - Frango c/ Milho', desc: 'Frango desfiado com milho verde.', price: 12.00, tag: 'Especial' },
+            { id: 209, category: 'pasteis', title: 'Pastel Especial - Pizza', desc: 'Presunto, queijo, tomate fresco e orégano.', price: 12.00, tag: 'Especial' },
+
+            // Pastéis Especial da Casa (R$ 14,00)
+            { id: 210, category: 'pasteis', title: 'Especial da Casa - Frango c/ Cream Cheese', desc: 'Frango desfiado com toque cremoso de cream cheese.', price: 14.00, tag: 'Especial da Casa' },
+            { id: 211, category: 'pasteis', title: 'Especial da Casa - Carne c/ Cream Cheese', desc: 'Carne moída suculenta com cream cheese.', price: 14.00, tag: 'Especial da Casa' },
+            { id: 212, category: 'pasteis', title: 'Especial da Casa - Calabresa c/ Cream Cheese', desc: 'Calabresa bem fatiada com cream cheese.', price: 14.00, tag: 'Especial da Casa' },
+            { id: 213, category: 'pasteis', title: 'Especial da Casa - Carne c/ Bacon', desc: 'Carne moída temperada combinada com bacon crocante.', price: 14.00, tag: 'Especial da Casa' },
+
+            // Pastel Doce & X-Tudão
+            { id: 214, category: 'pasteis', title: 'Pastel Doce - Romeu e Julieta', desc: 'Massa crocante recheada com queijo e goiabada.', price: 12.00, tag: 'Doce' },
+            { id: 215, category: 'pasteis', title: 'X-Tudão do Gostinho', desc: 'O mais completo da casa! Carne moída, presunto, queijo, bacon, milho, ovo e cheddar.', price: 17.00, tag: 'Super Recheado' },
+
+            // Cuscuz Especial
+            { id: 301, category: 'cuscuz', title: 'Cuscuz Especial - Frango c/ Queijo', desc: 'Cuscuz nordestino quentinho com frango desfiado e queijo.', price: 14.00, tag: 'Quentinho' },
+            { id: 302, category: 'cuscuz', title: 'Cuscuz Especial - Calabresa c/ Queijo', desc: 'Cuscuz nordestino quentinho com calabresa e queijo derretido.', price: 14.00, tag: 'Quentinho' },
+            { id: 303, category: 'cuscuz', title: 'Cuscuz Especial - Carne de Sol c/ Queijo', desc: 'Cuscuz recheado com carne de sol desfiada e queijo abundante.', price: 16.00, tag: 'Recomendado' },
+
+            // Salgados Porção
+            { id: 401, category: 'salgados', title: 'Porção de Mini Salgados', desc: 'Crocantes por fora, macios por dentro! Coxinha e Bolinho Misto. Perfeita para compartilhar!', price: 20.00, tag: 'Para Compartilhar' },
+
+            // Batata Frita
+            { id: 402, category: 'batata', title: 'Batata Frita - Pequena', desc: 'Batatas fritas douradas, crocantes e bem quentinhas.', price: 8.99, tag: 'Porção P' },
+            { id: 403, category: 'batata', title: 'Batata Frita - Grande', desc: 'Batatas fritas douradas e crocantes em porção generosa.', price: 14.99, tag: 'Porção G' },
+
+            // Açaí Cremoso
+            { id: 501, category: 'acai', title: 'Açaí Cremoso - Isopor Pequeno', desc: 'Açaí geladinho, cremoso, saboroso e muito refrescante no copo isopor.', price: 12.00, tag: 'Geladinho' },
+            { id: 502, category: 'acai', title: 'Açaí Cremoso - Isopor Grande', desc: 'Açaí geladinho, cremoso, saboroso e muito refrescante em porção grande.', price: 14.00, tag: 'Geladinho' }
+        ];
+
+        let cart = [];
+        let activeCategory = 'todos';
+
+        // Render Menu Items
+        function renderMenu() {
+            const grid = document.getElementById('products-grid');
+            grid.innerHTML = '';
+
+            const filtered = activeCategory === 'todos' 
+                ? productsList 
+                : productsList.filter(p => p.category === activeCategory);
+
+            document.getElementById('items-count-tag').innerText = `${filtered.length} item(ns) encontrado(s)`;
+
+            filtered.forEach(p => {
+                const card = document.createElement('div');
+                card.className = "bg-brand-card border border-gray-800 hover:border-brand-yellow/50 rounded-2xl p-4 flex flex-col justify-between transition-all duration-200 shadow-lg hover:shadow-xl group";
+                
+                card.innerHTML = `
+                    <div>
+                        <div class="flex items-start justify-between gap-2 mb-2">
+                            <h3 class="font-bold text-base sm:text-lg text-white group-hover:text-brand-yellow transition-colors">${p.title}</h3>
+                            <span class="bg-brand-yellow/10 border border-brand-yellow/30 text-brand-yellow text-[10px] font-bold px-2 py-0.5 rounded-full uppercase whitespace-nowrap">
+                                ${p.tag}
+                            </span>
+                        </div>
+                        <p class="text-gray-400 text-xs leading-relaxed mb-4">${p.desc}</p>
+                    </div>
+                    
+                    <div class="flex items-center justify-between border-t border-gray-800/80 pt-3 mt-auto">
+                        <div>
+                            <span class="text-[10px] text-gray-500 uppercase block font-semibold">Preço</span>
+                            <span class="text-brand-yellow font-black text-lg">R$ ${p.price.toFixed(2).replace('.', ',')}</span>
+                        </div>
+                        <button onclick="addToCart(${p.id})" 
+                            class="bg-brand-yellow hover:bg-amber-400 text-black font-extrabold text-xs px-3.5 py-2 rounded-xl flex items-center gap-1.5 transition-all shadow-md active:scale-95">
+                            <i class="fa-solid fa-plus"></i> Adicionar
+                        </button>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // Add Product to Cart
+        function addToCart(productId) {
+            const item = productsList.find(p => p.id === productId);
+            const inCart = cart.find(c => c.id === productId);
+
+            if (inCart) {
+                inCart.qty++;
+            } else {
+                cart.push({ ...item, qty: 1 });
+            }
+
+            updateCartUI();
+        }
+
+        // Change Quantity in Cart
+        function changeQty(productId, delta) {
+            const inCart = cart.find(c => c.id === productId);
+            if (!inCart) return;
+
+            inCart.qty += delta;
+            if (inCart.qty <= 0) {
+                cart = cart.filter(c => c.id !== productId);
+            }
+            updateCartUI();
+        }
+
+        // Update Cart Components and Buttons
+        function updateCartUI() {
+            const total = cart.reduce((sum, i) => sum + (i.price * i.qty), 0);
+            const count = cart.reduce((sum, i) => sum + i.qty, 0);
+
+            // Update Desktop View
+            const desktopList = document.getElementById('desktop-cart-list');
+            if (cart.length === 0) {
+                desktopList.innerHTML = `<p class="text-gray-500 text-center py-8 text-sm">Nenhum item adicionado ao seu carrinho ainda.</p>`;
+            } else {
+                desktopList.innerHTML = cart.map(i => `
+                    <div class="flex items-center justify-between bg-brand-surface p-2.5 rounded-xl border border-gray-800 text-xs">
+                        <div class="flex-1 pr-2">
+                            <p class="font-bold text-gray-200">${i.title}</p>
+                            <p class="text-brand-yellow font-semibold">R$ ${(i.price * i.qty).toFixed(2).replace('.', ',')}</p>
+                        </div>
+                        <div class="flex items-center gap-2 bg-brand-dark px-2 py-1 rounded-lg border border-gray-700">
+                            <button onclick="changeQty(${i.id}, -1)" class="text-gray-400 hover:text-white font-bold px-1.5 py-0.5">-</button>
+                            <span class="font-bold text-white">${i.qty}</span>
+                            <button onclick="changeQty(${i.id}, 1)" class="text-gray-400 hover:text-white font-bold px-1.5 py-0.5">+</button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            document.getElementById('desktop-subtotal').innerText = `R$ ${total.toFixed(2).replace('.', ',')}`;
+            document.getElementById('desktop-total').innerText = `R$ ${total.toFixed(2).replace('.', ',')}`;
+            document.getElementById('desktop-badge-count').innerText = `${count} item(ns)`;
+
+            // Update Mobile Bar View
+            document.getElementById('mobile-cart-total').innerText = `R$ ${total.toFixed(2).replace('.', ',')}`;
+            document.getElementById('mobile-cart-badge').innerText = `${count}`;
+
+            // Update State of Buttons
+            const isDisabled = cart.length === 0;
+            document.getElementById('btn-desktop-checkout').disabled = isDisabled;
+            document.getElementById('btn-mobile-checkout').disabled = isDisabled;
+        }
+
+        // Category Filter Helper
+        function filterCategory(cat, btn) {
+            activeCategory = cat;
+
+            // Reset buttons styling
+            document.querySelectorAll('.cat-btn').forEach(b => {
+                b.className = 'cat-btn bg-brand-card hover:bg-brand-surface text-gray-300 font-medium px-4 py-2 rounded-xl text-sm whitespace-nowrap transition-all';
+            });
+
+            // Set active button styling
+            btn.className = 'cat-btn active bg-brand-yellow text-black font-extrabold px-4 py-2 rounded-xl text-sm whitespace-nowrap transition-all shadow-md';
+
+            // Set category title
+            const titles = {
+                'todos': 'Todos os Itens',
+                'burgers': 'Hambúrgueres Especiais',
+                'pasteis': 'Pastéis Recheados',
+                'cuscuz': 'Cuscuz Nordestino Especial',
+                'salgados': 'Porção de Salgados',
+                'batata': 'Batatas Fritas Crocantes',
+                'acai': 'Açaí Cremoso no Isopor'
+            };
+            document.getElementById('category-title').innerHTML = `<i class="fa-solid fa-fire text-brand-red"></i> ${titles[cat] || 'Cardápio'}`;
+
+            renderMenu();
+        }
+
+        // Modal Handlers
+        function openCheckoutModal() {
+            if (cart.length === 0) return;
+
+            const summaryContainer = document.getElementById('modal-cart-summary');
+            const totalPriceEl = document.getElementById('modal-total-price');
+            const total = cart.reduce((sum, i) => sum + (i.price * i.qty), 0);
+
+            summaryContainer.innerHTML = cart.map(i => `
+                <div class="flex justify-between items-center text-xs text-gray-300">
+                    <span>${i.qty}x ${i.title}</span>
+                    <span class="font-bold text-white">R$ ${(i.price * i.qty).toFixed(2).replace('.', ',')}</span>
+                </div>
+            `).join('');
+
+            totalPriceEl.innerText = `R$ ${total.toFixed(2).replace('.', ',')}`;
+            document.getElementById('checkout-modal').classList.remove('hidden');
+        }
+
+        function closeCheckoutModal() {
+            document.getElementById('checkout-modal').classList.add('hidden');
+        }
+
+        function toggleAddressField() {
+            const type = document.getElementById('delivery-type').value;
+            const addressBox = document.getElementById('address-container');
+            const addressInput = document.getElementById('cust-address');
+
+            if (type === 'retirada') {
+                addressBox.classList.add('hidden');
+                addressInput.removeAttribute('required');
+            } else {
+                addressBox.classList.remove('hidden');
+                addressInput.setAttribute('required', 'required');
+            }
+        }
+
+        function handlePaymentChange() {
+            const method = document.getElementById('payment-method').value;
+            const pixBox = document.getElementById('pix-payment-box');
+            const trocoBox = document.getElementById('troco-container');
+
+            if (method === 'pix') {
+                pixBox.classList.remove('hidden');
+                trocoBox.classList.add('hidden');
+            } else if (method === 'dinheiro') {
+                pixBox.classList.add('hidden');
+                trocoBox.classList.remove('hidden');
+            } else {
+                pixBox.classList.add('hidden');
+                trocoBox.classList.add('hidden');
+            }
+        }
+
+        function copyPixKey() {
+            const pixKey = "(83) 99654-7831";
+            
+            // Clipboard fallback logic
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(pixKey);
+            } else {
+                const textArea = document.createElement("textarea");
+                textArea.value = pixKey;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+            }
+
+            // Custom Notification Box
+            const toast = document.createElement('div');
+            toast.className = 'fixed bottom-20 left-1/2 -translate-x-1/2 bg-brand-yellow text-black px-4 py-2 rounded-xl font-black text-xs shadow-2xl z-50 flex items-center gap-2';
+            toast.innerHTML = `<i class="fa-solid fa-check"></i> Chave Pix ${(pixKey)} Copiada!`;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 2500);
+        }
+
+        // WhatsApp Order Submission
+        function submitOrder(e) {
+            e.preventDefault();
+
+            const name = document.getElementById('cust-name').value;
+            const deliveryType = document.getElementById('delivery-type').value === 'delivery' ? 'Entrega em Domicílio' : 'Retirada no Balcão';
+            const address = document.getElementById('cust-address').value;
+            const paymentMethod = document.getElementById('payment-method').value;
+            const troco = document.getElementById('cust-troco').value;
+            const notes = document.getElementById('cust-notes').value;
+
+            const total = cart.reduce((sum, i) => sum + (i.price * i.qty), 0);
+
+            let msg = `🍔 *NOVO PEDIDO - GOSTINHO DO BREJO* 🍔\n`;
+            msg += `-------------------------------------------\n`;
+            msg += `👤 *Cliente:* ${name}\n`;
+            msg += `🛵 *Tipo:* ${deliveryType}\n`;
+            
+            if (deliveryType.includes('Entrega')) {
+                msg += `📍 *Endereço:* ${address}\n`;
+            }
+            
+            msg += `💳 *Forma de Pagamento:* ${paymentMethod.toUpperCase()}\n`;
+            
+            if (paymentMethod === 'dinheiro' && troco) {
+                msg += `💵 *Troco para:* ${troco}\n`;
+            }
+            
+            if (notes) {
+                msg += `📝 *Observações:* ${notes}\n`;
+            }
+
+            msg += `-------------------------------------------\n`;
+            msg += `🛒 *ITENS DO PEDIDO:*\n`;
+
+            cart.forEach(item => {
+                msg += `• *${item.qty}x* ${item.title} - R$ ${(item.price * item.qty).toFixed(2).replace('.', ',')}\n`;
+            });
+
+            msg += `-------------------------------------------\n`;
+            msg += `💰 *TOTAL DO PEDIDO:* R$ ${total.toFixed(2).replace('.', ',')}\n\n`;
+
+            if (paymentMethod === 'pix') {
+                msg += `✅ *Pagamento realizado/agendado via Pix (83) 99654-7831*\n`;
+                msg += `*Envie o comprovante nesta conversa assim que finalizar!*`;
+            }
+
+            const phoneNumber = "5583996547831";
+            const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(msg)}`;
+
+            window.open(whatsappUrl, '_blank');
+        }
+
+        // Initialize Menu
+        document.addEventListener('DOMContentLoaded', () => {
+            renderMenu();
+        });
+    </script>
+</body>
+</html>
